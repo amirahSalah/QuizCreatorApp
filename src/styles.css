@@ -1,0 +1,52 @@
+.selected {
+    background-color: orange;
+}
+
+/* The list of options */
+.options {
+    padding: 8px;
+    border: 2px solid #000;
+    cursor: pointer;
+}
+
+ul {
+    list-style-type: none;
+}
+
+body{
+    /* font-family: Verdana; */
+    font-size: 18px;
+}
+
+/*START quiz list style*/
+.quizList{
+    padding: 15px 0;
+}
+.quizList > li{
+    padding: 15px 0;
+    border-bottom: 1px dashed #999;
+}
+.quizList > li span{
+    float: right;
+    display: inline-block;
+}
+.quizInfo h3{
+    text-transform: capitalize;
+}
+.quizInfo p{
+    margin: 0;
+}
+.quizInfo a{
+    font-size: 12px;
+    color: #333;
+}
+.quizAction{
+    text-align: right;
+}
+.quizAction button{
+    opacity: 0;
+    transition: opacity ease-out .3s;
+}
+.quizList > li:hover .quizAction button{
+    opacity: 1;
+}
