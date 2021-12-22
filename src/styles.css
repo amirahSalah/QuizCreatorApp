@@ -28,7 +28,6 @@ body{
 }
 .quizList > li span{
     float: right;
-    display: inline-block;
 }
 .quizInfo h3{
     text-transform: capitalize;
@@ -49,4 +48,12 @@ body{
 }
 .quizList > li:hover .quizAction a{
     opacity: 1;
+}
+/*END quiz list style*/
+
+/*START quiz component style*/
+.questionContainer{
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #999;
 }
