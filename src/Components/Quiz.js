@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {QuizData} from './QuizData';
+import { Link } from "react-router-dom";
+
 
 function Quiz() {
 
@@ -13,8 +15,7 @@ function Quiz() {
     return (
         <div>
             <div className="text-center">
-             <a href="/QuizNew" className="btn btn-lg btn-info" >Create New Quiz</a>
-            {/* <Link to="/QuizNew">React</Link> */}
+            <Link to="/Quiz" className="btn btn-lg btn-info">Create New Quiz</Link>
             </div>
             <ul className="quizList">                    
                 {list.map((quiz)=>
@@ -27,12 +28,13 @@ function Quiz() {
                         </div>
                         <div className="col-12 col-sm-3 quizAction">
                             <p>Final Score: <b>{quiz.score ? quiz.score : "not scored yet"}</b></p>
-                            <button className="btn btn-sm btn-info" >Edit</button>
+                            <Link to={`/Quiz/${quiz.id}`} className="btn btn-sm btn-info">Edit</Link>
                         </div>
                     </div>
                 </li>
                 )}              
             </ul>
+            
         </div>
     )
 }

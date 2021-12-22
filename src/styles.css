@@ -43,10 +43,10 @@ body{
 .quizAction{
     text-align: right;
 }
-.quizAction button{
+.quizAction a{
     opacity: 0;
     transition: opacity ease-out .3s;
 }
-.quizList > li:hover .quizAction button{
+.quizList > li:hover .quizAction a{
     opacity: 1;
 }
