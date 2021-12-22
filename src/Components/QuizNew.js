@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {QuizData} from './QuizData';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+
 
 function QuizNew() {
     const navigate = useNavigate();
+    const { id } = useParams();
      const [quiz, setQuiz] = useState(
          {
             "id": null,
@@ -47,9 +49,18 @@ function QuizNew() {
         }
      );
 
+
+    function getExactQuiz(id){
+        const result = QuizData.filter(Quiz => Quiz.id === id);
+        let quizToBeEdited = result[0];
+         setQuiz(quizToBeEdited);
+    }
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
-        //if url have quiz id >> fill the state with quiz data
+        if(id){
+            let idNum = parseInt(id);
+            getExactQuiz(idNum);
+        }
     },[]);
 
     //handle all changes
@@ -112,8 +123,6 @@ function QuizNew() {
 
     function handleAnswerChange(answerId,questionId, event){
         let newObj = {...quiz};
-        console.log(questionId);
-        console.log(answerId);
         newObj.questions_answers.map(function(question){
             if(question.id === questionId){
                 question.answers.map(function(answer){
@@ -181,33 +190,30 @@ function QuizNew() {
     
     
     //quiz submit
-    const quizHandler= (() => {
+    const quizHandler= (() => {  
         let quizToBeSaved = {...quiz};
-        console.log("QuizData");
-        console.log(QuizData);
-        console.log("QuizData.length");
-        console.log(QuizData.length);
-        let lastQuiz = QuizData.slice(-1);
-        console.log(lastQuiz.length);
-        if (lastQuiz.length === 0){
-            //my data is empty
-            //this will be the first quiz to save
-            quizToBeSaved.id = 1;     
+        if (id){
+            let urlID = parseInt(id);
+            let objIndex = QuizData.findIndex((quiz => quiz.id === urlID));
+            QuizData[objIndex] = quizToBeSaved;
+            setQuiz(quizToBeSaved);
         }else{
-            lastQuiz = QuizData[QuizData.length-1];
-            console.log("lastQuiz.id");
-            console.log(lastQuiz.id);
-            quizToBeSaved.id = lastQuiz.id + 1;
-            
+            let lastQuiz = QuizData.slice(-1);
+            if (lastQuiz.length === 0){
+                //my data is empty
+                //this will be the first quiz to save
+                quizToBeSaved.id = 1;     
+            }else{
+                lastQuiz = QuizData[QuizData.length-1];
+                quizToBeSaved.id = lastQuiz.id + 1;              
+            }
+            setQuiz(quizToBeSaved);
+            QuizData.push(quizToBeSaved);
         }
-        console.log("quizToBeSaved");
-        console.log(quizToBeSaved);
-        setQuiz(quizToBeSaved);
-        console.log("quiz");
-        console.log(quiz);
-        QuizData.push(quizToBeSaved);
-        console.log("QuizData");
-        console.log(QuizData);
+        
+       
+        
+       
         navigate('/');
     });
     

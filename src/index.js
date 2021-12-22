@@ -9,7 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App container">
-        <h1 className="text-center">Welcome To React</h1>
+        <h1 className="text-center appTitle">Welcome To Quiz Creator</h1>
         <Routes>
             <Route path="/" element={<Quiz />} />
             <Route path="Quiz" element={<QuizNew />} />

@@ -17,6 +17,9 @@ body{
     /* font-family: Verdana; */
     font-size: 18px;
 }
+.appTitle{
+    margin: 20px 0;
+}
 
 /*START quiz list style*/
 .quizList{
@@ -66,3 +69,4 @@ input[type=checkbox], input[type=radio]{
 .submitBtn{
     margin-top: 40px !important;
 }
+/*END quiz component style*/
