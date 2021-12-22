@@ -57,3 +57,12 @@ body{
     margin-bottom: 15px;
     border: 1px solid #999;
 }
+input[type=checkbox], input[type=radio]{
+    margin-top: 10px;
+}
+.form-check-label{
+    margin-bottom: 5px;
+}
+.submitBtn{
+    margin-top: 40px !important;
+}

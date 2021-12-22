@@ -19,8 +19,29 @@ function QuizNew() {
                 "text": "",
                 "feedback_false": "",
                 "feedback_true": "",
-                "answer_id": null,
-                "answers": []   
+                "answer_id": 1,
+                "answers": [
+                    {
+                    "id": Math.random(),
+                    "is_true": false,
+                    "text": "question 1 answer 1 false"
+                  },
+                  {
+                    "id": Math.random(),
+                    "is_true": false,
+                    "text": "question 1 answer 2 false"
+                  },
+                  {
+                    "id": Math.random(),
+                    "is_true": true,
+                    "text": "question 1 answer 3 true"
+                  },
+                  {
+                    "id": Math.random(),
+                    "is_true": false,
+                    "text": "question 1 answer 4 false"
+                  }
+                ]   
               }
             ]
         }
@@ -88,6 +109,27 @@ function QuizNew() {
         setQuiz(newObj);
     }
 
+
+    function handleAnswerChange(answerId,questionId, event){
+        let newObj = {...quiz};
+        console.log(questionId);
+        console.log(answerId);
+        newObj.questions_answers.map(function(question){
+            if(question.id === questionId){
+                question.answers.map(function(answer){
+                    answer.is_true = false;
+
+                    if(answer.id === answerId){
+                        answer.is_true = true;
+                    }
+                    return answer;   
+                }); 
+            }  
+            return question;     
+        }); 
+        setQuiz(newObj);
+    }
+   
     
     
     //add new question
@@ -101,13 +143,35 @@ function QuizNew() {
             "text": "",
             "feedback_false": "",
             "feedback_true": "",
-            "answer_id": null,
-            "answers": []   
+            "answer_id": 0,
+            "answers": [
+                {
+                    "id": Math.random(),
+                    "is_true": false,
+                    "text": "question 1 answer 1 false"
+                  },
+                  {
+                    "id": Math.random(),
+                    "is_true": false,
+                    "text": "question 1 answer 2 false"
+                  },
+                  {
+                    "id": Math.random(),
+                    "is_true": true,
+                    "text": "question 1 answer 3 true"
+                  },
+                  {
+                    "id": Math.random(),
+                    "is_true": false,
+                    "text": "question 1 answer 4 false"
+                  }
+            ]   
         }
 
         //get the last question id to add new sequenced id for the new question
         let lastQuestion = clonedQuiz.questions_answers.slice(-1)[0];
         newQuestion.id = lastQuestion.id + 1;
+        newQuestion.answer_id = lastQuestion.answer_id + 1;
         clonedQuiz.questions_answers.push(newQuestion);
 
         //finally set state with new one
@@ -183,12 +247,21 @@ function QuizNew() {
                                 <label htmlFor="qFBF">Question feedback when answer false</label>
                                 <input type="text" className="form-control" id="qFBF" placeholder="Enter False Feedback" value={question.feedback_false} onChange={onFBFChange.bind(this, question.id)}/>
                             </div>
+                            {question.answers.map((answer)=> 
+                            <div key={answer.id} className="form-check">
+                                <input className="form-check-input" type="radio" name={`radio_`+question.id} id={answer.id} value={answer.text} checked={answer.is_true} onChange={handleAnswerChange.bind(this, answer.id, question.id)}/>
+                                <label className="form-check-label" htmlFor={answer.id}>
+                                    {answer.text}
+                                </label>
+                            </div>
+                            )}
+ 
                         </div>
                     )}
                     <button type="button" className="btn-block btn btn-sm btn-info" onClick={questionHandler}>+ Add question</button>
 
 
-                    <button type="button" className="btn btn-primary" onClick={quizHandler}>Submit</button>
+                    <button type="button" className="btn btn-danger btn-block submitBtn" onClick={quizHandler}>Submit</button>
                 </form>
             
 
